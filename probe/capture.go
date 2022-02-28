@@ -30,7 +30,7 @@ func NewProbeSource(device string) (*ProbeSource, error) {
 	var handle *pcap.Handle
 	var err error
 	if device == "" {
-		return nil, error.New("No device specified.")
+		return nil, errors.New("No device specified.")
 	}
 	handle, err = openAsMonitorMode(device)
 	if err != nil {
