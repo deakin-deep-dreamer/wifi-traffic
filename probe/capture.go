@@ -3,6 +3,7 @@ package probe
 import (
 	"fmt"
 	"log"
+	"errors"
 
 	"github.com/google/gopacket"
 	"github.com/google/gopacket/layers"
