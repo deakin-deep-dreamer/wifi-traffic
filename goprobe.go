@@ -12,8 +12,7 @@ import (
   "bytes"
   "io/ioutil"
 
-  "wifi-traffic/goprobe/probe"
-
+  "github.com/deakin-deep-dreamer/wifi-traffic/probe"
   // "github.com/sidepelican/goprobe/probe"
   "github.com/BurntSushi/toml"
   "github.com/lestrrat/go-file-rotatelogs"
