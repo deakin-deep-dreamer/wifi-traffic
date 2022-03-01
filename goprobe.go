@@ -1,16 +1,17 @@
 package main
 
 import (
+  "log"
   "fmt"
   "os"
   "io"
-  "path"
+  // "path"
   "time"
-  "encoding/json"
+  // "encoding/json"
   "runtime"
-  "net/http"
-  "bytes"
-  "io/ioutil"
+  // "net/http"
+  // "bytes"
+  // "io/ioutil"
 
   "github.com/deakin-deep-dreamer/wifi-traffic/probe"
   // "github.com/sidepelican/goprobe/probe"
@@ -54,7 +55,7 @@ func mainLoop() {
   }
   defer source.Close()
 
-  for record := range source.Records {
+  for record := range source.Records() {
     log.Println(record.String())
   }
 }
@@ -68,14 +69,28 @@ func makeRotateLogs() (*rotatelogs.RotateLogs, error) {
   )
 }
 
+func exists(filename string) bool {
+	_, err := os.Stat(filename)
+	return err == nil
+}
+
 func findConfigPath() (string, error) {
   const configFileName = "config.tml"
   errret := fmt.Errorf("%s not found at: ", configFileName)
 
+  // static path
+  if runtime.GOOS == "linux" {
+    p := "/etc/wifi-traffic/" + configFileName
+    if exists(p) {
+      return p, nil
+    }
+    errret = fmt.Errorf("%v\n\t%v", errret, p)
+  }
+
   // current dir
 	pwd, err := os.Getwd()
 	if err == nil {
-		p := pwd + "/" + configFileNAme
+		p := pwd + "/" + configFileName
 		if exists(p) {
 			return p, nil
 		}
@@ -103,14 +118,14 @@ func loadConfig() (config Config) {
 }
 
 
-func main() {
-	// nextOdd := makeOddGenerator()
-	// fmt.Println(nextOdd())
-	// fmt.Println(nextOdd())
-	// fmt.Println(nextOdd())
-
-	fmt.Println("Start...")
-	for {
-		mainLoop()
-	}
-}
+// func main() {
+// 	// nextOdd := makeOddGenerator()
+// 	// fmt.Println(nextOdd())
+// 	// fmt.Println(nextOdd())
+// 	// fmt.Println(nextOdd())
+//
+// 	fmt.Println("Start...")
+// 	for {
+// 		mainLoop()
+// 	}
+// }

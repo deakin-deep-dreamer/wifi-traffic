@@ -79,7 +79,7 @@ func openAsMonitorMode(device string) (*pcap.Handle, error) {
 	if err != nil {
 		return nil, fmt.Errorf("NewInactiveHandle(%s) failed: %s", device, err)
 	}
-	defer inactive.Cleanup()
+	defer inactive.CleanUp() 
 
 	// change mode to monitor
 	if err := inactive.SetRFMon(true); err != nil {

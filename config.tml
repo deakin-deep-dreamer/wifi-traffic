@@ -1,1 +1,1 @@
-Device = wlan0
+Device = "wlan0"

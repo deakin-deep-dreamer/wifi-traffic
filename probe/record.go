@@ -30,5 +30,5 @@ func (r *ProbeRecord) Values() (values url.Values) {
 
 func (r *ProbeRecord) String() string {
 	ltime := time.Unix(r.Timestamp, 0).Local()
-	return fmt.Sprintf("%s,%d,%s,%d,%d", ltime.Format(time.RFC3339), r.Timestamp, r.Mac, R.SequenceId, r.Rssi)
+	return fmt.Sprintf("%s,%d,%s,%d,%d", ltime.Format(time.RFC3339), r.Timestamp, r.Mac, r.SequenceId, r.Rssi)
 }
