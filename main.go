@@ -56,16 +56,28 @@ func makeOddGenerator() func() uint8 {
 }
 
 func main() {
-	srv, err := daemon.New(name, description, daemon.SystemDaemon, dependencies)
-	if err != nil {
-		log.Println("Error daemon-new:", err)
-		os.Exit(1)
-	}
-	service := &Service{srv}
-	status, err := service.Manage()
-	if err != nil {
-		log.Println(status, "\nError-manage:", err)
-		os.Exit(1)
-	}
-	fmt.Println(status)
+	log.Println("main ...")
+	go func() {
+		log.Println("main ... new thread")
+		for {
+			mainLoop()
+		}
+	}()
+	var input string
+	fmt.Scanln(&input)
 }
+
+// func main() {
+// 	srv, err := daemon.New(name, description, daemon.SystemDaemon, dependencies)
+// 	if err != nil {
+// 		log.Println("Error daemon-new:", err)
+// 		os.Exit(1)
+// 	}
+// 	service := &Service{srv}
+// 	status, err := service.Manage()
+// 	if err != nil {
+// 		log.Println(status, "\nError-manage:", err)
+// 		os.Exit(1)
+// 	}
+// 	fmt.Println(status)
+// }

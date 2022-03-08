@@ -21,7 +21,8 @@ import (
 
 const (
   topic = "/goprobe"
-  logPath = "/var/log/goprobe.log"
+  // logPath = "/var/log/goprobe.log"
+  logPath = "/home/mahabib/Downloads/goprobe.log"
 )
 
 type Config struct {
@@ -57,6 +58,7 @@ func mainLoop() {
 
   for record := range source.Records() {
     log.Println(record.String())
+    log.Println(record.Values())
   }
 }
 
@@ -116,16 +118,3 @@ func loadConfig() (config Config) {
 
   return
 }
-
-
-// func main() {
-// 	// nextOdd := makeOddGenerator()
-// 	// fmt.Println(nextOdd())
-// 	// fmt.Println(nextOdd())
-// 	// fmt.Println(nextOdd())
-//
-// 	fmt.Println("Start...")
-// 	for {
-// 		mainLoop()
-// 	}
-// }

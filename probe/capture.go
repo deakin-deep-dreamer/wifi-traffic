@@ -58,6 +58,7 @@ func NewProbeSource(device string) (*ProbeSource, error) {
 
 				dot11 := packet.Layer(layers.LayerTypeDot11).(*layers.Dot11)
 				radioTap := packet.Layer(layers.LayerTypeRadioTap).(*layers.RadioTap)
+				ie := packet.Layer(layers.LayerTypeDot11InformationElement).(*layers.Dot11InformationElement)
 
 				source.c <- ProbeRecord{
 					Timestamp:  packet.Metadata().Timestamp.Unix(),
@@ -79,7 +80,7 @@ func openAsMonitorMode(device string) (*pcap.Handle, error) {
 	if err != nil {
 		return nil, fmt.Errorf("NewInactiveHandle(%s) failed: %s", device, err)
 	}
-	defer inactive.CleanUp() 
+	defer inactive.CleanUp()
 
 	// change mode to monitor
 	if err := inactive.SetRFMon(true); err != nil {

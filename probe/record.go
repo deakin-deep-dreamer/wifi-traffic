@@ -8,11 +8,13 @@ import (
 )
 
 type ProbeRecord struct {
-	Timestamp  int64  `json:"timestamp"`
-	Mac        string `json:"mac"`
-	SequenceId int    `json:"sequence_id"`
-	Rssi       int    `json:"rssi"`
-	ApName     string `json:"ap_name,omitempty"`
+	Timestamp  int64
+	Mac        string
+	SequenceId int
+	Rssi       int
+	ApName     string
+	// IEs
+	
 }
 
 func init() {
